@@ -4,100 +4,71 @@
 
 using namespace std;
 
+const int collect(5);
+
 Jatekmester::Jatekmester(int meret){
     vector<vector<int>> matrix(meret, vector<int>(meret));
     allapot=matrix;
     aktualisjatekos=1;
     _meret=meret;
     gyoztes=0;
-//matrix ki
-    for(int i=0;i<meret;i++){
-        for(int j=0;j<meret;j++){
-            cout<<" "<<allapot[i][j];
-        }
-        cout<<endl;
-    }
 }
 
 void Jatekmester::lepes(int hova_i, int hova_j){
     if(allapot[hova_i][hova_j]==0){
         allapot[hova_i][hova_j]=aktualisjatekos;
 
-        //van-e 5
-        //fugg
+        //fuggolegs
         int fugg=1;
-        int egymasmellett=1;
-        for(int i=1;i<5 && hova_i-i>=0 && allapot[hova_i-i][hova_j]==aktualisjatekos;i++)
-        {
-            egymasmellett++;
-            if(egymasmellett>fugg){
-                fugg=egymasmellett;
-            }
+        for(int i=1;i<collect && hova_i-i>=0 && allapot[hova_i-i][hova_j]==aktualisjatekos;i++){
+            fugg++;
         }
-        for(int i=1;i<5 && hova_i+i<_meret && allapot[hova_i+i][hova_j]==aktualisjatekos;i++)
-        {
-            egymasmellett++;
-            if(egymasmellett>fugg){
-                fugg=egymasmellett;
-            }
+        for(int i=1;i<collect && hova_i+i<_meret && allapot[hova_i+i][hova_j]==aktualisjatekos;i++){
+            fugg++;
         }
-        cout<<fugg<<endl;
-        //viz
+        //cout<<fugg<<endl;
+        //vizszintes
         int viz=1;
-        egymasmellett=1;
-        for(int j=1;j<5 && hova_j-j>=0 && allapot[hova_i][hova_j-j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>viz){
-                viz=egymasmellett;
-            }
+        for(int j=1;j<collect && hova_j-j>=0 && allapot[hova_i][hova_j-j]==aktualisjatekos;j++){
+            viz++;
         }
-        for(int j=1;j<5 && hova_j+j<_meret && allapot[hova_i][hova_j+j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>viz){
-                viz=egymasmellett;
-            }
+        for(int j=1;j<collect && hova_j+j<_meret && allapot[hova_i][hova_j+j]==aktualisjatekos;j++){
+            viz++;
         }
-        cout<<viz<<endl;
+        //cout<<viz<<endl;
         //atlo1
         int atlo1=1;
-        egymasmellett=1;
-        for(int j=1;j<5 && (hova_j-j>=0 && hova_i-j>=0) && allapot[hova_i-j][hova_j-j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>atlo1){
-                atlo1=egymasmellett;
-            }
+        for(int j=1;j<collect && (hova_j-j>=0 && hova_i-j>=0) && allapot[hova_i-j][hova_j-j]==aktualisjatekos;j++){
+            atlo1++;
         }
-        for(int j=1;j<5 && (hova_j+j<_meret && hova_i+j<_meret) && allapot[hova_i+j][hova_j+j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>atlo1){
-                atlo1=egymasmellett;
-            }
+        for(int j=1;j<collect && (hova_j+j<_meret && hova_i+j<_meret) && allapot[hova_i+j][hova_j+j]==aktualisjatekos;j++){
+            atlo1++;
         }
-        cout<<atlo1<<endl;
+        //cout<<atlo1<<endl;
         //atlo2
         int atlo2=1;
-        egymasmellett=1;
-        for(int j=1;j<5 && (hova_i+j<_meret && hova_j-j>=0) && allapot[hova_i+j][hova_j-j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>atlo2){
-                atlo2=egymasmellett;
-            }
+        for(int j=1;j<collect && (hova_i+j<_meret && hova_j-j>=0) && allapot[hova_i+j][hova_j-j]==aktualisjatekos;j++){
+            atlo2++;
         }
-        for(int j=1;j<5 && (hova_i-j>0 && hova_j+j<_meret) && allapot[hova_i-j][hova_j+j]==aktualisjatekos;j++)
-        {
-            egymasmellett++;
-            if(egymasmellett>atlo2){
-                atlo2=egymasmellett;
-            }
+        for(int j=1;j<collect && (hova_i-j>=0 && hova_j+j<_meret) && allapot[hova_i-j][hova_j+j]==aktualisjatekos;j++){
+            atlo2++;
         }
-        cout<<atlo2<<endl;
-        if(fugg>=5 || viz>=5 || atlo1>=5 || atlo2>=5){
+        //cout<<atlo2<<endl;
+
+        if(fugg>=collect || viz>=collect || atlo1>=collect || atlo2>=collect){
             gyoztes=aktualisjatekos;
+        }
+        //matrix tele
+        bool vanhely=false;
+        for(int i=0;i<_meret && !vanhely;i++){
+            for(int j=0;j<_meret && !vanhely;j++){
+                if(allapot[i][j]==0){
+                    vanhely=true;
+                }
+            }
+        }
+        if(!vanhely){
+            gyoztes=3;
         }
 
         //masik jon
@@ -107,13 +78,13 @@ void Jatekmester::lepes(int hova_i, int hova_j){
 
 
     }
-    //matrix ki
+    /*//matrix ki
     for(int i=0;i<_meret;i++){
         for(int j=0;j<_meret;j++){
             cout<<" "<<allapot[i][j];
         }
         cout<<endl;
-    }
+    }*/
 }
 
 int Jatekmester::kievagy(int kocek_i, int kocek_j){

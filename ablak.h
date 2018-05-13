@@ -4,12 +4,13 @@
 #include "widgetek.h"
 #include <vector>
 
+using namespace std;
+
 class Window {
 protected:
-    std::vector<Widget*>widgetek;
+    vector<Widget*>widgetek;
 public:
-    virtual void esemeny(std::string mitortent){}
-    void event_loop();
+    void event_loop(const int XX, const int YY);
 };
 
 #endif // ABLAK_H_INCLUDED

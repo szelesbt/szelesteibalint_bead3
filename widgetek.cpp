@@ -1,5 +1,6 @@
 #include "widgetek.h"
 #include "graphics.hpp"
+
 using namespace genv;
 
 Widget::Widget(int a, int b, int c, int d) : _helyx(a), _helyy(b), _meretx(c), _merety(d){
